@@ -98,3 +98,11 @@ main {
 .subredditItemContainer {
     padding: 15px 10px;
 }
+
+.subredditItemContainer button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
