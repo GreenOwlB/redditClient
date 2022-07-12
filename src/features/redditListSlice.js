@@ -6,7 +6,11 @@ const initialState = {
     selectedSubreddit: 'AskUK',
     redditList: [],
     isLoading: true,
-    hasError: false
+    hasError: false,
+    commentsList: [],
+    commentsIsLoading: false,
+    commentsHasError: false,
+    currentComments: ''
 
 }
 
@@ -17,7 +21,17 @@ export const fetchRedditPosts = createAsyncThunk(
         const json = await response.json();
         return json;
     }
-    )
+);
+
+export const fetchComments = createAsyncThunk(
+    'list/fetchCommentsById',
+    async ({subreddit, item}) => {
+        const response = await fetch(`https://www.reddit.com/r/${subreddit}/comments/${item}.json`);
+        const json = await response.json();
+        const comments = json[1].data.children;
+        return {comments, item};
+    }
+)
 
 export const redditListSlice = createSlice({
     name: 'list',
@@ -41,6 +55,21 @@ export const redditListSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         },
+        [fetchComments.pending]: (state, action) => {
+            state.commentsIsLoading = true;
+            state.commentsHasError = false;
+        },
+        [fetchComments.fulfilled]: (state, action) => {
+            state.commentsIsLoading = false;
+            state.commentsHasError = false;
+            state.commentsList = action.payload.comments;
+            state.currentComments = action.payload.item;
+        },
+        [fetchComments.rejected]: (state, action) => {
+            state.commentsIsLoading = false;
+            state.commentsHasError = true;
+        },
+
     }
 });
 
@@ -57,6 +86,10 @@ export const selectBaseSubReddits = (state) => {
 export const selectIsLoading = state => state.redditList.isLoading;
 
 export const selectList = state => state.redditList.redditList;
+
+export const selectComments = state => state.redditList.commentsList;
+
+export const selectCurrentComments = state => state.redditList.currentComments;
 
 
 

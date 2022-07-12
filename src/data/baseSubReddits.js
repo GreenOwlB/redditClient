@@ -21,5 +21,8 @@ export const baseSubReddits = [
     },
     {
         name: "aww"
+    },
+    {
+        name: "thenetherlands"
     }
 ]

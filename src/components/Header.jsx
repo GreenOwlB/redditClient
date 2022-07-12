@@ -1,8 +1,13 @@
+import { FcReddit } from 'react-icons/fc';
 
 const Header = () => {
     return (
-        <div>
-            <h2>Header</h2>
+        <div className='header'>
+            <div className='icon'>
+                <FcReddit />
+            </div>
+            
+            <h2>Reddit Client</h2>
         </div>
     );
 }
