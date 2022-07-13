@@ -10,7 +10,9 @@ const initialState = {
     commentsList: [],
     commentsIsLoading: false,
     commentsHasError: false,
-    currentComments: ''
+    currentComments: '',
+    search: '',
+    // filteredRedditList: []
 
 }
 
@@ -39,6 +41,9 @@ export const redditListSlice = createSlice({
     reducers: {
         changeSubReddit: (state, action) => {
             state.selectedSubreddit = action.payload;
+        },
+        search: (state, action) => {
+            state.search = action.payload;
         }
     },
     extraReducers: {
@@ -73,7 +78,7 @@ export const redditListSlice = createSlice({
     }
 });
 
-export const { changeSubReddit } = redditListSlice.actions;
+export const { changeSubReddit, search } = redditListSlice.actions;
 
 export const selectSubReddit = state => state.redditList.selectedSubreddit;
 
@@ -90,6 +95,10 @@ export const selectList = state => state.redditList.redditList;
 export const selectComments = state => state.redditList.commentsList;
 
 export const selectCurrentComments = state => state.redditList.currentComments;
+
+export const selectSearch = state => state.redditList.search;
+
+// export const selectFilteredRedditList = state => state.redditList.filteredRedditList;
 
 
 

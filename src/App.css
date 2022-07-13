@@ -20,12 +20,30 @@ video {
     justify-content: center;
     align-items: center;
     width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--orange);
+    z-index: 100;
+    height: 100px;
 }
 
 .header .icon {
     font-size: 4rem;
     margin-right: 30px;
 }
+
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    background-color: var(--orange);
+    width: 100%;
+    z-index: 100;
+}
+
 
 .mainContainer {
     display: flex;
@@ -76,18 +94,20 @@ main {
 .postListContainer {
     display: flex;
     flex-direction: column;
+    
     align-items: center;
     width: 90%;
     background-color: white;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
-    flex-grow: 1;
+    max-width: 1200px;
 }
 
 .postListContainer h2 {
     padding: 20px;
     font-size: 2rem;
     font-weight: 400;
+    
 }
 
 .postContainer {
@@ -95,19 +115,24 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
+    width: 70%;
     background-color: white;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     margin-bottom: 20px;
+    transition: width 0.5s ;
+
+   
+}
+
+.postContainer.active {
+    width: 100%;
+   
 }
 
 .postContainer .postHeader {
-    /* position: relative; */
     width: 100%;
     z-index: 20;
-    
-    /* padding: 10px; */
 }
 
 .postContainer .postHeader .top {
@@ -124,6 +149,7 @@ main {
     align-items: center;
     font-size: 0.9rem;
     font-weight: 300;
+    padding-right: 20px;
 }
 
 .postContainer .postHeader .top .score .arrows {
@@ -134,7 +160,7 @@ main {
 
 
 .postContainer .postHeader h4 {
-    color: var(--orange);
+    /* color: var(--orange); */
     padding: 10px;
     font-size: 1.3rem;
     font-weight: 500;
@@ -149,31 +175,8 @@ main {
     color: white;
 }
 
-.postContainer .postHeader .showMore {
-    position: absolute;
-    right: 20px;
-    bottom: 5px;
-    cursor: pointer;
-    font-size: 1.7rem;
-    color: var(--orange);
-    
-}
 
-.postContainer .postHeader .showMore .tooltip {
-    background-color: rgba(22, 22, 22, 0.7);
-    color: white;
-    visibility: hidden;
-    padding: 3px 10px;
-    border-radius: 15px;
-    font-size: 0.6rem;
-    transition-delay: 0s;
-}
 
-.postContainer .postHeader .showMore:hover .tooltip {
-    visibility: visible;
-    transition-delay: 0.5s;
-    cursor: default;
-}
 
 
 
@@ -181,15 +184,38 @@ main {
 
 .postContainer .postBody {
     padding: 15px;
-    padding-bottom: 35px;
+    padding-bottom: 10px;
     overflow: hidden;
+    width: 100%;
 }
+
+.postContainer .postBody .media {
+    display: flex;
+    justify-content: center;
+}
+
+.postContainer .postBody .imageContainer {
+    width: 90%;
+   
+    
+}
+
+.postContainer .postBody .imageContainer img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+
 
 .postContainer .postBody .textSection {
     max-height: 200px;
     overflow: hidden;
     position: relative;
     padding: 5px 20px;
+    padding-bottom: 25px;
+    
 
 }
 
@@ -214,6 +240,41 @@ main {
     background-image: none;
 }
 
+.postContainer .textSection .showMore {
+    position: absolute;
+    right: 5px;
+    bottom: 7px;
+    cursor: pointer;
+    font-size: 1.7rem;
+    color: var(--orange);
+    z-index: 20;
+    transform: translateY(10px);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    align-items: center;
+    
+    
+}
+
+.postContainer .textSection .showMore .tooltip {
+    background-color: rgba(22, 22, 22, 0.7);
+    color: white;
+    visibility: hidden;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.6rem;
+    transition-delay: 0s;
+    
+}
+
+.postContainer .textSection .showMore:hover .tooltip {
+    visibility: visible;
+    transition-delay: 0.5s;
+    cursor: default;
+}
+
+
 
 
 
@@ -222,11 +283,42 @@ main {
     line-height: 1.3rem;
 }
 
+.postContainer .postBottom {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.postContainer .postBottom button {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--orange);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.postContainer .postBottom button:hover {
+    font-weight: 800;
+}
+
+.postContainer .postBottom .commentNumber {
+    margin-left: 10px;
+}
+
+/* side */
 
 .sideContainer {
     /* background-color: rgb(187, 75, 0); */
     background-color: var(--orange);
+    background-image: url("./images/marko-brecic-eRc0V3b7UMY-unsplash.jpg");
+    background-blend-mode:multiply;
+    background-size: cover;
+    height: 100vh;
+    position: sticky;
+    top: 100px;
+    right: 0;
 
 
     padding: 15px;
@@ -255,6 +347,10 @@ main {
     font-size: 1rem;
 }
 
+
+
+/* comments */
+
 .commentsSection {
     padding: 10px;
     display: flex;
@@ -274,10 +370,7 @@ main {
 .commentContainer .commentSingle {
     background-color: rgba(240, 240, 240, 0.3);
     margin-bottom: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 10px;
+    padding: 10px 10px;
 
     border-top-left-radius: 5px;
     border-top-right-radius: 50px;
@@ -311,8 +404,10 @@ main {
 }
 
 .commentContainer .commentBody {
-    font-weight: 300;
-    font-size: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 400;
+    font-size: 0.9rem;
     line-height: 1.3;
 }
 
@@ -321,8 +416,10 @@ main {
     word-wrap: break-word;
 }
 
-.commentContainer .commentBody ul {
+.commentContainer .commentBody ul,
+.commentContainer .commentBody ol {
     padding-left: 20px;
+    
 }
 
 .commentContainer .commentBody li {

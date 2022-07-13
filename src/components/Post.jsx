@@ -5,6 +5,7 @@ import { fetchComments } from '../features/redditListSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentComments } from "../features/redditListSlice";
 import Comments from "./Comments";
+import { GoCommentDiscussion } from 'react-icons/go';
 
 
 
@@ -56,7 +57,7 @@ const Post = ({ redditPost }) => {
 
     return (
         // <div className={`postContainer ${showFullText ? "active": ""}`}>
-        <div className="postContainer">
+        <div className={`postContainer ${showComments ? "active" : ""}`}>
 
             <div className="postHeader">
                 <div className="top">
@@ -70,6 +71,8 @@ const Post = ({ redditPost }) => {
                             {redditPost.ups}  / {`${redditPost.upvote_ratio * 100}%`}  
                         </div>
                     </div>
+
+                    {/* {redditPost.is_self &&
                     <div 
                         className="showMore"
                         onClick={handleShowFullText}
@@ -79,6 +82,8 @@ const Post = ({ redditPost }) => {
                             {showFullText ? "Less" : "More"}
                         </div>
                     </div>
+                    } */}
+
                 </div>
                 <h4>{redditPost.title}</h4>
             </div>
@@ -86,7 +91,7 @@ const Post = ({ redditPost }) => {
             <div className="postBody">
                 <div className="media">
                     {redditPost.is_reddit_media_domain && !redditPost.is_video && 
-                        <div>
+                        <div className="imageContainer">
                         <img src={redditPost.url} alt="" />
                         </div>
                     }
@@ -99,20 +104,42 @@ const Post = ({ redditPost }) => {
                         </div>
                     }
                 </div>
+
                 <div className={`textSection ${showFullText ? "active": ""}`}>
                     <ReactMarkdown children={redditPost.selftext}/> 
+
+                    {redditPost.is_self &&
+                    <div 
+                        className="showMore"
+                        onClick={handleShowFullText}
+                    >
+                        <div className="tooltip">
+                            {showFullText ? "Less" : "More"}
+                        </div>
+
+                        {showFullText ? <TbArrowBigUpLines /> : <TbArrowBigDownLines /> }
+                    </div>
+                    }
+
+
+
                 </div>
             </div>
-
 
             <div className="postBottom">
                 <button
                     onClick={handleLoadComments}
                 >
-                    {!showComments ?  `Show comments: ${redditPost.num_comments}` : `Hide comments`  }
+                    { <GoCommentDiscussion />}
+                    <span className="commentNumber">{redditPost.num_comments}</span>
+                    
+                    
+                    {` ${showComments ? "Close comments" : ""}`}
                 </button>
 
             </div>
+
+
             {showComments && item === current && <Comments item={item} />}
             <div>
                 {showComments && 

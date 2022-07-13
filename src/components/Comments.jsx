@@ -1,5 +1,5 @@
 import { selectComments, selectCurrentComments } from "../features/redditListSlice";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux/";
 import Comment from "./Comment";
 
 const Comments = ({ item }) => {

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux/";
 import { changeSubReddit } from "../features/redditListSlice";
 
 const SubRedditItem = ({ item }) => {

@@ -4,7 +4,6 @@ import { TbArrowBigTop } from 'react-icons/tb';
 
 
 const Comment = ({ comment }) => {
-    console.log(comment.data);
     return (
         <div className="commentContainer">
 
