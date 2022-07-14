@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { TbArrowBigDownLines, TbArrowBigUpLines, TbArrowBigTop, TbArrowBigDown } from 'react-icons/tb';
 import { fetchComments } from '../features/redditListSlice';
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentComments } from "../features/redditListSlice";
+import { selectCurrentComments, closeComments } from "../features/redditListSlice";
 import Comments from "./Comments";
 import { GoCommentDiscussion } from 'react-icons/go';
 
@@ -16,6 +16,7 @@ const Post = ({ redditPost }) => {
     const [showComments, setShowComments] = useState(false);
     const item = redditPost.name.split("_")[1];
     const current = useSelector(selectCurrentComments);
+    
     
 
     //notes:
@@ -34,10 +35,13 @@ const Post = ({ redditPost }) => {
     const handleLoadComments = () => {
         if (showComments) {
             setShowComments(false);
+            dispatch(closeComments());
             return;
         }
         const item = redditPost.name.split("_")[1];
         const subreddit = redditPost.subreddit;
+        
+        //needs to be refactored:
         setShowFullText(true);
         setShowComments(true);
 
@@ -72,17 +76,6 @@ const Post = ({ redditPost }) => {
                         </div>
                     </div>
 
-                    {/* {redditPost.is_self &&
-                    <div 
-                        className="showMore"
-                        onClick={handleShowFullText}
-                    >
-                        {showFullText ? <TbArrowBigUpLines /> : <TbArrowBigDownLines /> }
-                        <div className="tooltip">
-                            {showFullText ? "Less" : "More"}
-                        </div>
-                    </div>
-                    } */}
 
                 </div>
                 <h4>{redditPost.title}</h4>

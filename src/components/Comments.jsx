@@ -7,7 +7,6 @@ const Comments = ({ item }) => {
     const current = useSelector(selectCurrentComments);
     const comments = useSelector(selectComments);
 
-
     return (
         <div className="commentsSection">
             

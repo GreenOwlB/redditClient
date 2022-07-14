@@ -1,18 +1,16 @@
-// import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
-import { search } from "../features/redditListSlice";
-import { selectSearch } from '../features/redditListSlice';
+import { selectSubReddit } from '../features/redditListSlice';
+import { search, selectSearch } from '../features/searchSlice';
 
 const SearchBar = () => {
 
     const dispatch = useDispatch();
-    // const [search, setSearch] = useState("");
     const searchValue = useSelector(selectSearch);
+    const currentSubReddit = useSelector(selectSubReddit);
 
 
     const handleSearchChange = (e) => {
-        // setSearch(e.target.value);
         dispatch(search(e.target.value));
     }
 
@@ -22,7 +20,7 @@ const SearchBar = () => {
             <div className="searchbarContainer">
                 <input 
                     type="text"
-                    placeholder="Search" 
+                    placeholder={`search in loaded r/${currentSubReddit} posts...`}
                     className="search"
                     value={searchValue}
                     onChange={handleSearchChange}

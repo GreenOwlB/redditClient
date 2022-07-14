@@ -17,7 +17,7 @@ video {
 
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     position: sticky;
@@ -28,17 +28,95 @@ video {
     height: 100px;
 }
 
+.header .logoContainer {
+    display: flex;
+    align-items: center;
+}
+
 .header .icon {
     font-size: 4rem;
     margin-right: 30px;
 }
 
+.header .headerSearchContainer {
+    display: flex;
+    /* flex-direction: column; */
+    width: 600px;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.header .headerSearchContainer .searchOptions {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer span{
+    color: white;
+}
+
+
+.header .headerSearchContainer .searchOptions .optionContainer input {
+    visibility: hidden;
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer label {
+    width: 35px;
+    height: 15px;
+    background-color: #a1a1a1;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 25px;
+    position: relative;
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer label .movingPart {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: -2px;
+    left: 0px;
+    transition: left 0.5s;
+    background-color: rgb(206, 206, 206);
+    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.6),
+                inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer label .movingPart.active {
+    left: 20px;
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer label .inner {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    border-radius: 20px;
+    background-color: rgb(212, 212, 212);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5),
+                 -1px -1px 1px rgba(0, 0, 0, 0.5),
+                 2px 2px 2px rgba(255, 255, 255, 0.4);
+}
+
+.header .headerSearchContainer .searchOptions .optionContainer label .inner.active {
+    background-color: rgb(0, 228, 228);
+}
 
 .footer {
     position: sticky;
     bottom: 0;
     left: 0;
-    height: 100px;
+    height: 50px;
     background-color: var(--orange);
     width: 100%;
     z-index: 100;
@@ -50,13 +128,10 @@ video {
     flex-grow: 1;
     width: 100%;
     justify-content: space-between;
-
-    background-color: blanchedalmond;
 }
 
 main {
     background-color: rgb(248, 248, 248);
-
     flex-grow: 1;
     padding: 30px;
     display: flex;
@@ -71,24 +146,24 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .searchbarSection .searchbarContainer {
     background-color: white;
     padding: 5px;
     border-radius: 15px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
     width: 90%;
 
 }
 
 .searchbarSection .searchbarContainer .search {
     width: 100%;
-    padding: 5px;
+    padding: 5px 10px;
     border: none;
     outline: none;
-    font-size: 20px;
+    font-size: 0.9rem;
 }
 
 .postListContainer {
@@ -98,7 +173,7 @@ main {
     align-items: center;
     width: 90%;
     background-color: white;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     max-width: 1200px;
 }
@@ -108,6 +183,12 @@ main {
     font-size: 2rem;
     font-weight: 400;
     
+}
+
+.postListContainer .noSearchResults {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
 }
 
 .postContainer {
@@ -310,19 +391,18 @@ main {
 /* side */
 
 .sideContainer {
-    /* background-color: rgb(187, 75, 0); */
     background-color: var(--orange);
     background-image: url("./images/marko-brecic-eRc0V3b7UMY-unsplash.jpg");
     background-blend-mode:multiply;
     background-size: cover;
-    height: 100vh;
+    height: calc(100vh - 100px);
     position: sticky;
     top: 100px;
     right: 0;
 
 
     padding: 15px;
-    min-width: 250px;
+    width: 250px;
 }
 
 .subRedditListContainer {
@@ -410,6 +490,12 @@ main {
     font-size: 0.9rem;
     line-height: 1.3;
 }
+
+.commentContainer .commentBody h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 
 .commentContainer .commentBody p {
     margin-bottom: 10px;

@@ -3,6 +3,8 @@ import { baseSubReddits } from "../data/baseSubReddits";
 
 const initialState = {
     baseSubReddits: baseSubReddits,
+    savedSubReddits: [],
+    activeSubReddits: [],
     selectedSubreddit: 'AskUK',
     redditList: [],
     isLoading: true,
@@ -10,11 +12,14 @@ const initialState = {
     commentsList: [],
     commentsIsLoading: false,
     commentsHasError: false,
+    commentsOpen: false,
     currentComments: '',
-    search: '',
-    // filteredRedditList: []
 
 }
+
+// export const retrieveSavedSubReddits = () => {
+
+// }
 
 export const fetchRedditPosts = createAsyncThunk(
     'list/fetchBySelectedSubReddit',
@@ -39,12 +44,39 @@ export const redditListSlice = createSlice({
     name: 'list',
     initialState,
     reducers: {
+        fetchSavedSubReddits: (state, action) => {
+            if (localStorage.getItem('savedSubReddits')) {
+                const array = JSON.parse(localStorage.getItem('savedSubReddits'));
+                state.savedSubReddits = array;
+                state.activeSubReddits = state.baseSubReddits.concat(array);
+                return;
+            }
+            return;
+            
+        },
+        addSubReddit: (state, action) => {
+            const redditObj = {
+                name: action.payload
+            }
+            const array = [];
+            if (localStorage.getItem('savedSubReddits')) {
+                array.concat(JSON.parse(localStorage.getItem('savedSubReddits')));
+            } 
+            array.push(redditObj);
+            localStorage.setItem('savedSubReddits', JSON.stringify(array));
+            state.savedSubReddits.push(redditObj);
+            state.activeSubReddits.push(redditObj);
+        },
         changeSubReddit: (state, action) => {
             state.selectedSubreddit = action.payload;
         },
-        search: (state, action) => {
-            state.search = action.payload;
+        closeComments: (state) => {
+            state.commentsOpen = false;
+        },
+        openComments: (state) => {
+            state.commentsOpen = true;
         }
+
     },
     extraReducers: {
         [fetchRedditPosts.pending]: (state, action) => {
@@ -63,10 +95,12 @@ export const redditListSlice = createSlice({
         [fetchComments.pending]: (state, action) => {
             state.commentsIsLoading = true;
             state.commentsHasError = false;
+            state.commentsOpen = false;
         },
         [fetchComments.fulfilled]: (state, action) => {
             state.commentsIsLoading = false;
             state.commentsHasError = false;
+            state.commentsOpen = true;
             state.commentsList = action.payload.comments;
             state.currentComments = action.payload.item;
         },
@@ -78,12 +112,18 @@ export const redditListSlice = createSlice({
     }
 });
 
-export const { changeSubReddit, search } = redditListSlice.actions;
+export const { 
+    addSubReddit,
+    changeSubReddit, 
+    closeComments, 
+    openComments, 
+    fetchSavedSubReddits 
+} = redditListSlice.actions;
 
 export const selectSubReddit = state => state.redditList.selectedSubreddit;
 
-export const selectBaseSubReddits = (state) => {
-    const sortedList = [...state.redditList.baseSubReddits];
+export const selectActiveSubReddits = (state) => {
+    const sortedList = [...state.redditList.activeSubReddits];
     sortedList.sort((a,b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
     return sortedList;
 };
@@ -93,14 +133,9 @@ export const selectIsLoading = state => state.redditList.isLoading;
 export const selectList = state => state.redditList.redditList;
 
 export const selectComments = state => state.redditList.commentsList;
+export const selectOpenComments = state => state.redditList.openComments;
 
 export const selectCurrentComments = state => state.redditList.currentComments;
-
-export const selectSearch = state => state.redditList.search;
-
-// export const selectFilteredRedditList = state => state.redditList.filteredRedditList;
-
-
 
 
 export default redditListSlice.reducer;

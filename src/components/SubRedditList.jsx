@@ -1,10 +1,16 @@
 import SubRedditItem from "./SubRedditItem";
-import { useSelector } from "react-redux";
-import { selectBaseSubReddits } from "../features/redditListSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectActiveSubReddits, fetchSavedSubReddits } from "../features/redditListSlice";
+import { useEffect } from "react";
 
 const SubRedditList = () => {
 
-    const subreddits = useSelector(selectBaseSubReddits);
+    const dispatch = useDispatch();
+    const subreddits = useSelector(selectActiveSubReddits);
+
+    useEffect(() => {
+        dispatch(fetchSavedSubReddits());
+    },[dispatch])
 
     return (
         <div className="subRedditListContainer">
